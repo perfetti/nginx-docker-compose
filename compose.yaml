@@ -6,6 +6,19 @@ services:
       target: dev
     volumes:
       - ./api/index.js:/src/index.js
+    networks:
+      - app-network
+  react-app:
+    build:
+      context: ./react-app
+      target: dev
+    environment:
+      - PUBLIC_URL=//localhost:8089/react1
+      # - WDS_SOCKET_PORT=8089
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
   nginx:
     restart: always
     image: nginx:alpine
@@ -16,3 +29,10 @@ services:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - node
+      - react-app
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
