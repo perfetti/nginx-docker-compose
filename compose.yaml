@@ -1,13 +1,4 @@
-version: "3.8"
 services:
-  node:
-    build:
-      context: ./api
-      target: dev
-    volumes:
-      - ./api/index.js:/src/index.js
-    networks:
-      - app-network
   react-app:
     build:
       context: ./react-app
@@ -19,16 +10,29 @@ services:
       - "3000:3000"
     networks:
       - app-network
+  rails-app:
+    build: https://${GH_TOKEN}@github.com/perfetti/rails-app.git
+    image: rails
+    ports:
+      - 3000
+    networks:
+      - app-network
+  react2-app:
+    build: https://${GH_TOKEN}@github.com/perfetti/react2-app.git
+    image: react2
+    ports:
+      - 3000
+    networks:
+      - app-network
   nginx:
     restart: always
     image: nginx:alpine
     ports:
       - 8089:80
     volumes:
-      - ./html5up-stellar/:/var/www/html
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
-      - node
+      - rails-app
       - react-app
     networks:
       - app-network
