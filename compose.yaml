@@ -5,6 +5,9 @@ services:
       - 3000
     networks:
       - app-network
+    environment:
+      - PUBLIC_URL=//localhost:8089/
+      - WDS_SOCKET_PORT=8089
   rails-app:
     build: https://${GH_TOKEN}@github.com/perfetti/rails-app.git#main
     ports:
@@ -19,6 +22,7 @@ services:
       - 3000
     environment:
       - PUBLIC_URL=//localhost:8089/backend/
+      - WDS_SOCKET_PORT=8089
     networks:
       - app-network
   nginx:
