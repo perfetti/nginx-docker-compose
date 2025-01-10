@@ -1,27 +1,24 @@
 services:
   react-app:
-    build:
-      context: ./react-app
-      target: dev
-    environment:
-      - PUBLIC_URL=//localhost:8089/react1
-      # - WDS_SOCKET_PORT=8089
+    build: https://${GH_TOKEN}@github.com/perfetti/react1-app.git#main
     ports:
-      - "3000:3000"
+      - 3000
     networks:
       - app-network
   rails-app:
-    build: https://${GH_TOKEN}@github.com/perfetti/rails-app.git
-    image: rails
+    build: https://${GH_TOKEN}@github.com/perfetti/rails-app.git#main
     ports:
       - 3000
     networks:
       - app-network
+    environment:
+      - RAILS_RELATIVE_URL_ROOT=/api
   react2-app:
-    build: https://${GH_TOKEN}@github.com/perfetti/react2-app.git
-    image: react2
+    build: https://${GH_TOKEN}@github.com/perfetti/react2-app.git#main
     ports:
       - 3000
+    environment:
+      - PUBLIC_URL=//localhost:8089/backend/
     networks:
       - app-network
   nginx:
@@ -34,6 +31,7 @@ services:
     depends_on:
       - rails-app
       - react-app
+      - react2-app
     networks:
       - app-network
 
