@@ -10,12 +10,30 @@ services:
       - WDS_SOCKET_PORT=8089
   rails-app:
     build: https://${GH_TOKEN}@github.com/perfetti/rails-app.git#main
+    command: "bundle exec rails s -p 3000 -b '0.0.0.0'"
     ports:
       - 3000
     networks:
       - app-network
     environment:
       - RAILS_RELATIVE_URL_ROOT=/api
+      - DATABASE_HOST=db
+      - DATABASE_USERNAME=postgres
+      - RAILS_ENV=development
+    depends_on:
+      - db
+  db:
+    image: postgres
+    ports:
+      - 5432
+    networks:
+      - app-network
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=perfetti
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
   react2-app:
     build: https://${GH_TOKEN}@github.com/perfetti/react2-app.git#main
     ports:
@@ -26,7 +44,6 @@ services:
     networks:
       - app-network
   nginx:
-    restart: always
     image: nginx:alpine
     ports:
       - 8089:80
@@ -42,3 +59,6 @@ services:
 networks:
   app-network:
     driver: bridge
+
+volumes:
+  postgres_data:
