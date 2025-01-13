@@ -10,11 +10,11 @@ defined in the `basic.yaml` file.
 To run this you will execute:
 
 ```bash
-docker compose -f basic.yaml up
+docker compose up --build
 ```
 
-Once the container is up and running, you can hit `http://localhost:8089` to see a sample website for an imaginary Gen AI startup called `Smmrzer` that summarizes text :). The template used is called [Stellar](https://html5up.net/stellar) by [HTML5up](https://html5up.net).
+Once the container is up and running, you can hit `http://localhost:8089/` it `/` will route you to FE react project by default.
 
-It will look something like the below:
+`http://localhost:8089/backend/` will route you to the backend service.
 
-![Smmrzer screenshot](./html5up-stellar/images/smmrzer-screenshot.jpg)
+`http://localhost:8089/api/` will route you to the backend service with the api path.
