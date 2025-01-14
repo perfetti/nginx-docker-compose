@@ -1,7 +1,7 @@
 describe("Books Flow", () => {
   beforeEach(() => {
     // Reset database before each test
-    cy.request("POST", "/api/test_data/reset");
+    cy.resetTestData();
   });
 
   it("allows proposing and approving books", () => {
@@ -56,8 +56,10 @@ describe("Books Flow", () => {
   });
 
   it("displays test data books", () => {
-    // Load test data
-    cy.request("POST", "/api/test_data/load");
+    // Setup test books
+    cy.setupApprovedBook("Test Book 1");
+    cy.setupApprovedBook("Test Book 2");
+    cy.setupApprovedBook("Test Book 3");
 
     // Visit React1 app
     cy.visit("/");
@@ -66,5 +68,23 @@ describe("Books Flow", () => {
     cy.contains("Test Book 1");
     cy.contains("Test Book 2");
     cy.contains("Test Book 3");
+  });
+
+  it("displays books with authors and publishers", () => {
+    // Setup a book with author and publisher
+    cy.setupBookWithAuthorAndPublisher({
+      bookTitle: "Complete Guide to Testing",
+      authorName: "Jane Tester",
+      publisherName: "Test Publishing House",
+      status: "approved",
+    });
+
+    // Visit React1 app
+    cy.visit("/");
+
+    // Verify book details
+    cy.contains("Complete Guide to Testing");
+    cy.contains("Jane Tester");
+    cy.contains("Test Publishing House");
   });
 });

@@ -4,7 +4,10 @@
   "description": "Cypress tests for the books application",
   "scripts": {
     "test": "cypress run",
-    "cypress:open": "cypress open"
+    "test:local": "cypress run",
+    "test:local:gui": "cypress open",
+    "test:docker": "docker compose run --rm test cypress run",
+    "test:docker:gui": "docker compose run --rm test cypress open"
   },
   "devDependencies": {
     "cypress": "^13.6.1"
