@@ -15,11 +15,11 @@ services:
     networks:
       - app-network
     environment:
+      - RAILS_HOST=${RAILS_HOST}
       - RAILS_RELATIVE_URL_ROOT=${RAILS_RELATIVE_URL_ROOT}
       - DATABASE_HOST=${DATABASE_HOST}
       - DATABASE_USERNAME=${DATABASE_USERNAME}
       - RAILS_ENV=${RAILS_ENV}
-      - BIND=tcp://0.0.0.0:3000
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000/api/ping"]
       interval: 10s

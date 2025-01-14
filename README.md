@@ -1,11 +1,8 @@
-# nginx-docker-compose
+# Docker compose managaged test harness
 
 Example for a blog post about nginx docker compose
 
-## Basic example
-
-In the basic example, you will host static files with Nginx. The docker compose config is
-defined in the `basic.yaml` file.
+## Setup
 
 To run this you will execute:
 
