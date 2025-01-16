@@ -15,7 +15,7 @@ describe("Books Flow", () => {
     cy.contains("button", "Submit").click();
 
     // Visit React2 app (/backend path)
-    cy.visit("/backend");
+    cy.visit("/backend/");
     cy.contains("Provisional Books");
     cy.contains("Test Book Title");
 
@@ -46,7 +46,7 @@ describe("Books Flow", () => {
     cy.contains("button", "Submit").click();
 
     // Visit React2 app and deny the book
-    cy.visit("/backend");
+    cy.visit("/backend/");
     cy.contains(".book-item", "Book To Deny")
       .contains("button", "Deny")
       .click();
