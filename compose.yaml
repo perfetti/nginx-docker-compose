@@ -1,6 +1,6 @@
 services:
   frontend:
-    build: https://${GH_TOKEN}@${FRONTEND_REPO_URL}#${FRONTEND_REF}
+    build: ${FRONTEND_BUILD_CONTEXT}
     ports:
       - 3000
     networks:
@@ -9,7 +9,7 @@ services:
       - PUBLIC_URL=${FRONTEND_PUBLIC_URL}
       - WDS_SOCKET_PORT=${WDS_SOCKET_PORT}
   api:
-    build: https://${GH_TOKEN}@${API_REPO_URL}#${API_REF}
+    build: ${API_BUILD_CONTEXT}
     ports:
       - 3000
     networks:
@@ -46,7 +46,7 @@ services:
       timeout: 5s
       retries: 3
   backend:
-    build: https://${GH_TOKEN}@${BACKEND_REPO_URL}#${BACKEND_REF}
+    build: ${BACKEND_BUILD_CONTEXT}
     ports:
       - 3000
     environment:
