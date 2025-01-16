@@ -14,12 +14,24 @@ To build from local directories, run:
 ./build_local.sh
 ```
 
+Once built to run the containers:
+
+```bash
+./up_local.sh
+```
+
 ### GitHub Build
 
 To build from GitHub repositories, run:
 
 ```bash
 ./build_github.sh
+```
+
+Once built to run the containers:
+
+```bash
+./up_github.sh
 ```
 
 Once the container is up and running, you can hit `http://localhost:8089/` it `/` will route you to FE react project by default.
