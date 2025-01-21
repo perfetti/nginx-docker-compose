@@ -44,8 +44,6 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v2
-        with:
-          repository: perfetti/nginx-docker-compose.git
 
       - name: Build and start Docker Compose services
         run: docker-compose -f compose.yaml up --build -d
