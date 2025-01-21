@@ -44,12 +44,16 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          submodules: false
 
       - name: Build and start Docker Compose services
-        run: docker-compose -f compose.yaml up --build -d
+        run: docker-compose -f compose.yaml up --build -d && cd test && npm install && npm run test:local
 
-      - name: Run tests inside Docker container
-        run: cd tests && npm run test:docker
+      - name: Recursively show cwd
+        run: |
+          pwd
+          ls -R
 
       - name: Tear down Docker Compose services
         run: docker-compose down
