@@ -14,11 +14,7 @@ To build from local directories, run:
 ./build_local.sh
 ```
 
-Once built to run the containers:
-
-```bash
-./up_local.sh
-```
+This setup allows for hot-swapping of code. Any changes made in the `repo_refs` directories will be immediately reflected in the running containers, allowing developers to see their changes in real-time via the nginx server.
 
 ### GitHub Build
 
@@ -28,11 +24,9 @@ To build from GitHub repositories, run:
 ./build_github.sh
 ```
 
-Once built to run the containers:
+The GitHub build process is isolated from the local development environment, ensuring a clean and isolated build environment. This prevents any potential conflicts with local volumes.
 
-```bash
-./up_github.sh
-```
+## Once Built
 
 Once the container is up and running, you can hit `http://localhost:8089/` it `/` will route you to FE react project by default.
 
