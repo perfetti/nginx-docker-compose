@@ -3,4 +3,4 @@
 source ./setup_local.sh
 
 # Run Docker Compose
-docker-compose -f compose.yaml up
+docker-compose -f docker-compose.yaml up
