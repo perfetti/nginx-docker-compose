@@ -26,5 +26,5 @@ RUN npm install
 # Copy the rest of the application
 COPY . .
 
-# Keep container running for development
-CMD ["tail", "-f", "/dev/null"]
+# Run Cypress tests
+CMD ["npx", "cypress", "run"]
