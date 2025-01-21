@@ -1,0 +1,51 @@
+name: Test Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+env:
+  GH_TOKEN: "${{secrets.GH_TOKEN}}"
+
+  FRONTEND_REPO_URL: "github.com/perfetti/react1-app.git"
+  BACKEND_REPO_URL: "github.com/perfetti/react2-app.git"
+  API_REPO_URL: "github.com/perfetti/rails-app.git"
+
+  FRONTEND_REF: "main"
+  BACKEND_REF: "main"
+  API_REF: "main"
+
+  FRONTEND_PUBLIC_URL: "//localhost:8089/"
+  BACKEND_PUBLIC_URL: "//localhost:8089/backend/"
+  WDS_SOCKET_PORT: "8089"
+
+  POSTGRES_USER: "postgres"
+  POSTGRES_PASSWORD: "postgres"
+  POSTGRES_DB: "perfetti"
+
+  RAILS_HOST: "api"
+  RAILS_ENV: "test"
+  DATABASE_HOST: "db"
+  DATABASE_USERNAME: "postgres"
+  RAILS_RELATIVE_URL_ROOT: "/api"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build and start Docker Compose services
+        run: docker-compose -f compose.yaml up --build -d
+
+      - name: Run tests inside Docker container
+        run: cd tests && npm run test:docker
+
+      - name: Tear down Docker Compose services
+        run: docker-compose down
