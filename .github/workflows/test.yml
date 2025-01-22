@@ -50,8 +50,18 @@ jobs:
       - name: Build and start Docker Compose services
         run: bash ./setup_github.sh && docker compose -f docker-compose.yaml up --build -d
 
-      - name: Run tests
-        run: docker compose run test npx cypress run
+      - name: Run E2E tests
+        uses: cypress-io/github-action@v6
+        with:
+          config: pageLoadTimeout=100000,baseUrl=http://localhost:8089
+          working-directory: test/
+
+      - name: Save artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build
+          if-no-files-found: error
+          path: build
 
       - name: Tear down Docker Compose services
         run: docker-compose down
