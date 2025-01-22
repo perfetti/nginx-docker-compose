@@ -73,7 +73,7 @@ services:
     networks:
       - app-network
     healthcheck:
-      test: ["curl", "-f", "http://localhost:80"]
+      test: ["CMD", "curl", "-f", "http://nginx:8089"]
       interval: 10s
       timeout: 5s
       retries: 3
