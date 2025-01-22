@@ -3,11 +3,9 @@
   "version": "1.0.0",
   "description": "Cypress tests for the books application",
   "scripts": {
-    "test": "cypress run",
-    "test:local": "cypress run",
-    "test:local:gui": "cypress open",
-    "test:docker": "docker compose run test npm run test:local:gui",
-    "test:docker:gui": "docker compose run test npm run test"
+    "test": "npx cypress run",
+    "test:gui": "npx cypress open",
+    "test:docker": "docker compose run test npx cypress run"
   },
   "devDependencies": {
     "cypress": "^13.6.1"
