@@ -6,8 +6,8 @@
     "test": "cypress run",
     "test:local": "cypress run",
     "test:local:gui": "cypress open",
-    "test:docker": "docker compose run --rm test cypress run",
-    "test:docker:gui": "docker compose run --rm test cypress open"
+    "test:docker": "docker compose run test npm run test:local:gui",
+    "test:docker:gui": "docker compose run test npm run test"
   },
   "devDependencies": {
     "cypress": "^13.6.1"
