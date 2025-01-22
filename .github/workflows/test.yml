@@ -51,7 +51,13 @@ jobs:
         run: bash ./setup_github.sh && docker compose up --build -d
 
       - name: check dns is working
-        run: netstat -tulpn # Use -tulpn to show TCP/UDP listeners
+        run: cat /etc/hosts; netstat -tulpn # Use -tulpn to show TCP/UDP listeners
+
+      - name: Check what services are on what port
+        run: docker ps --format "table {{.Names}}\t{{.Ports}}" && docker compose ps
+
+      - name: Wait for services to be healthy
+        run: sleep 2
 
       - name: Run E2E tests
         uses: cypress-io/github-action@v6
