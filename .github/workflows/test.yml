@@ -65,6 +65,10 @@ jobs:
           config: pageLoadTimeout=100000,baseUrl=http://localhost:8089
           working-directory: test/
 
+      - name: Check if tests failed
+        if: ${{ failure() }}
+        uses: mxschmitt/action-tmate@v3
+
       - name: Save artifact
         uses: actions/upload-artifact@v4
         with:
