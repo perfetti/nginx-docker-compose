@@ -72,6 +72,11 @@ services:
       - backend
     networks:
       - app-network
+    healthcheck:
+      test: ["curl", "-f", "http://localhost:80"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
   test:
     build: ./test
