@@ -38,22 +38,35 @@ Cypress.Commands.add("setupProvisionalBook", (title = "Test Book") => {
   ]);
 });
 
-Cypress.Commands.add("setupApprovedBook", (title = "Approved Book") => {
-  cy.createTestData([
-    {
-      factory: "book",
-      attributes: {
-        title,
-        status: "approved",
+Cypress.Commands.add(
+  "setupApprovedBook",
+  (
+    title = "Approved Book",
+    author_name = "Test Author",
+    publisher_name = "Test Publisher"
+  ) => {
+    cy.createTestData([
+      {
+        factory: "book",
+        attributes: {
+          title,
+          author_attributes: {
+            name: author_name,
+          },
+          publisher_attributes: {
+            name: publisher_name,
+          },
+          status: "approved",
+        },
       },
-    },
-  ]);
-});
+    ]);
+  }
+);
 
 Cypress.Commands.add(
   "setupBookWithAuthorAndPublisher",
   ({
-    bookTitle = "Test Book",
+    title = "Test Book",
     authorName = "Test Author",
     publisherName = "Test Publisher",
     status = "approved",
@@ -62,7 +75,7 @@ Cypress.Commands.add(
       {
         factory: "book",
         attributes: {
-          title: bookTitle,
+          title,
           status,
           author_attributes: {
             name: authorName,

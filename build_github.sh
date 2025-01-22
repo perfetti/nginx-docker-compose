@@ -1,5 +1,5 @@
 #!/bin/bash
-source ./setup_github.sh
+source .env
 
 # Run Docker Compose without local volumes
-docker-compose -f docker-compose.yaml up --build --no-deps
+docker-compose up --build --no-deps -d

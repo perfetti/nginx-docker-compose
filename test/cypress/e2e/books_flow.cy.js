@@ -12,6 +12,12 @@ describe("Books Flow", () => {
     // Propose a new book
     cy.contains("button", "Propose New Book").click();
     cy.get('input[placeholder="Enter book title"]').type("Test Book Title");
+    cy.get('input[placeholder="Enter book publisher"]').type(
+      "Test Author Name"
+    );
+    cy.get('input[placeholder="Enter book author"]').type(
+      "Test Publisher Name"
+    );
     cy.contains("button", "Submit").click();
 
     // Visit React2 app (/backend path)
@@ -43,6 +49,12 @@ describe("Books Flow", () => {
     // Propose a new book
     cy.contains("button", "Propose New Book").click();
     cy.get('input[placeholder="Enter book title"]').type("Book To Deny");
+    cy.get('input[placeholder="Enter book publisher"]').type(
+      "Test Author Name"
+    );
+    cy.get('input[placeholder="Enter book author"]').type(
+      "Test Publisher Name"
+    );
     cy.contains("button", "Submit").click();
 
     // Visit React2 app and deny the book
