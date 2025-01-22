@@ -47,12 +47,10 @@ jobs:
         with:
           submodules: false
 
-      - name: Build and start Docker Compose services
-        run: bash ./setup_github.sh && docker compose -f docker-compose.yaml up --build -d
-
       - name: Run E2E tests
         uses: cypress-io/github-action@v6
         with:
+          build: bash ./setup_github.sh && docker compose up --build -d
           config: pageLoadTimeout=100000,baseUrl=http://localhost:8089
           working-directory: test/
 
