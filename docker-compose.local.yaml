@@ -1,0 +1,33 @@
+services:
+  frontend:
+    extends:
+      file: docker-compose.yaml
+      service: frontend
+    volumes:
+      - ./repo_refs/react1-app:/app
+  backend:
+    extends:
+      file: docker-compose.yaml
+      service: backend
+    volumes:
+      - ./repo_refs/react2-app:/app
+
+  api:
+    extends:
+      file: docker-compose.yaml
+      service: api
+    volumes:
+      - ./repo_refs/rails-app:/app
+  db:
+    extends:
+      file: docker-compose.yaml
+      service: db
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+
+networks:
+  app-network:
+    driver: bridge

@@ -51,9 +51,9 @@ jobs:
 
       - name: Build and start Docker Compose services then run tests
         run: |
-          bash ./setup_github.sh &&
+          ./setup_github.sh &&
           docker-compose --profile baseServices up --build --no-deps -d &&
-          cd test && npm install && npx cypress run
+          cd test && npm install && npx cypress run; docker ps
 
       # - name: check dns is working
       #   run: cat /etc/hosts; netstat -tulpn # Use -tulpn to show TCP/UDP listeners
