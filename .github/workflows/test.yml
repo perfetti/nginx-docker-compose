@@ -51,8 +51,7 @@ jobs:
 
       - name: Build and start Docker Compose services then run tests
         run: |
-          ./setup_github.sh &&
-          docker-compose --profile baseServices up --build --no-deps -d &&
+          ./build_github.sh &&
           cd test && npm install && npx cypress run; docker ps
 
       # - name: check dns is working

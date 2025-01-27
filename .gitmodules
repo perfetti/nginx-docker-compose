@@ -1,9 +1,12 @@
 [submodule "repo_refs/react1-app"]
   path = repo_refs/react1-app
-  url = ${FRONTEND_BUILD_CONTEXT}
+  url = github.com/perfetti/react1-app.git
+  branch = main
 [submodule "repo_refs/react2-app"]
   path = repo_refs/react2-app
-  url = ${BACKEND_BUILD_CONTEXT}
+  url = github.com/perfetti/react2-app.git
+  branch = main
 [submodule "repo_refs/rails-app"]
   path = repo_refs/rails-app
-  url = ${API_BUILD_CONTEXT}
+  url = github.com/perfetti/rails-app.git
+  branch = main
