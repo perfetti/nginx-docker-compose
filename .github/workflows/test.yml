@@ -49,7 +49,10 @@ jobs:
           submodules: false
 
       - name: Build and start Docker Compose services then run tests
-        run: bash ./setup_github.sh && docker-compose up --build --no-deps -d --scale test=0 && docker compose run test npx cypress run
+        run: |
+          bash ./setup_github.sh &&
+          docker-compose up --build --no-deps -d --scale test=0 &&
+          docker compose run test npx cypress run --config-file cypress.config.js
 
       # - name: check dns is working
       #   run: cat /etc/hosts; netstat -tulpn # Use -tulpn to show TCP/UDP listeners
