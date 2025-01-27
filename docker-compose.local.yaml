@@ -25,6 +25,11 @@ services:
     volumes:
       - ./postgres_data:/var/lib/postgresql/data
 
+  nginx:
+    extends:
+      file: docker-compose.yaml
+      service: nginx
+
 volumes:
   postgres_data:
 
