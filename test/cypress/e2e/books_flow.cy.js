@@ -18,6 +18,7 @@ describe("Books Flow", () => {
     cy.get('input[placeholder="Enter book author"]').type(
       "Test Publisher Name"
     );
+    cy.get('input[placeholder="Enter book ISBN"]').type("1234567890");
     cy.contains("button", "Submit").click();
 
     // Visit React2 app (/backend path)
