@@ -1,0 +1,9 @@
+[submodule "repo_refs/react1-app"]
+  path = repo_refs/react1-app
+  url = ${FRONTEND_BUILD_CONTEXT}
+[submodule "repo_refs/react2-app"]
+  path = repo_refs/react2-app
+  url = ${BACKEND_BUILD_CONTEXT}
+[submodule "repo_refs/rails-app"]
+  path = repo_refs/rails-app
+  url = ${API_BUILD_CONTEXT}
