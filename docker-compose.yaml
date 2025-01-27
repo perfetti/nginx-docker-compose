@@ -8,8 +8,6 @@ services:
     environment:
       - PUBLIC_URL=${FRONTEND_PUBLIC_URL}
       - WDS_SOCKET_PORT=${WDS_SOCKET_PORT}
-    volumes:
-      - ./repo_refs/react1-app:/app
   api:
     build: ${API_BUILD_CONTEXT}
     ports:
@@ -22,8 +20,6 @@ services:
       - DATABASE_HOST=${DATABASE_HOST}
       - DATABASE_USERNAME=${DATABASE_USERNAME}
       - RAILS_ENV=${RAILS_ENV}
-    volumes:
-      - ./repo_refs/rails-app:/app
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000/api/ping"]
       interval: 10s
@@ -58,8 +54,6 @@ services:
       - WDS_SOCKET_PORT=${WDS_SOCKET_PORT}
     networks:
       - app-network
-    volumes:
-      - ./repo_refs/react2-app:/app
   nginx:
     image: nginx:alpine
     ports:
