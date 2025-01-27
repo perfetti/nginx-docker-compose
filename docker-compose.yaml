@@ -72,20 +72,6 @@ services:
       timeout: 5s
       retries: 3
 
-  # test:
-  #   build: ./test
-  #   networks:
-  #     - app-network
-  #   volumes:
-  #     - ./test:/app
-  #   environment:
-  #     - CYPRESS_BASE_URL=http://nginx:80
-  #   depends_on:
-  #     - nginx
-  #     - api
-  #     - frontend
-  #     - backend
-
 networks:
   app-network:
     driver: bridge
