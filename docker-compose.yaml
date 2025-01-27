@@ -1,5 +1,6 @@
 services:
   frontend:
+    profiles: ["baseServices"]
     build: ${FRONTEND_BUILD_CONTEXT}
     ports:
       - 3000
@@ -11,6 +12,7 @@ services:
     volumes:
       - ./repo_refs/react1-app:/app
   api:
+    profiles: ["baseServices"]
     build: ${API_BUILD_CONTEXT}
     ports:
       - 3000
@@ -33,6 +35,7 @@ services:
       db:
         condition: service_healthy
   db:
+    profiles: ["baseServices"]
     image: postgres
     ports:
       - 5432
@@ -50,6 +53,7 @@ services:
       timeout: 5s
       retries: 3
   backend:
+    profiles: ["baseServices"]
     build: ${BACKEND_BUILD_CONTEXT}
     ports:
       - 3000
@@ -61,6 +65,7 @@ services:
     volumes:
       - ./repo_refs/react2-app:/app
   nginx:
+    profiles: ["baseServices"]
     image: nginx:alpine
     ports:
       - 8089:80
