@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - "*"
   pull_request:
     branches:
       - main
@@ -48,7 +49,7 @@ jobs:
           submodules: false
 
       - name: Build and start Docker Compose services
-        run: bash ./build_github.sh
+        run: bash ./setup_github.sh
 
       - name: check dns is working
         run: cat /etc/hosts; netstat -tulpn # Use -tulpn to show TCP/UDP listeners
@@ -59,11 +60,15 @@ jobs:
       - name: Wait for services to be healthy
         run: sleep 2
 
-      - name: Run E2E tests
-        uses: cypress-io/github-action@v6
-        with:
-          config: pageLoadTimeout=100000,baseUrl=http://localhost:8089
-          working-directory: test/
+      - name: Run tests
+        run: docker compose run test npx cypress run
+
+      # - name: Run E2E tests
+      #   uses: cypress-io/github-action@v6
+      #   with:
+      #     start: bash ./setup_github.sh
+      #     config: pageLoadTimeout=100000,baseUrl=http://localhost:8089
+      #     working-directory: test/
 
       - name: Check if tests failed
         if: ${{ failure() }}
