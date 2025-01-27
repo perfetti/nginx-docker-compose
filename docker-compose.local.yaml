@@ -1,0 +1,44 @@
+services:
+  frontend:
+    extends:
+      file: docker-compose.yaml
+      service: frontend
+    volumes:
+      - ./repo_refs/react1-app:/app
+  backend:
+    extends:
+      file: docker-compose.yaml
+      service: backend
+    volumes:
+      - ./repo_refs/react2-app:/app
+  api:
+    extends:
+      file: docker-compose.yaml
+      service: api
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./repo_refs/rails-app:/app
+  db:
+    extends:
+      file: docker-compose.yaml
+      service: db
+
+  nginx:
+    extends:
+      file: docker-compose.yaml
+      service: nginx
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - api
+      - frontend
+      - backend
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
