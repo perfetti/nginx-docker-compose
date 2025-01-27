@@ -37,7 +37,8 @@ env:
 jobs:
   test:
     runs-on: ubuntu-latest
-
+    container:
+      image: node:18
     steps:
       - uses: KengoTODA/actions-setup-docker-compose@v1
         with:
@@ -52,8 +53,7 @@ jobs:
         run: |
           bash ./setup_github.sh &&
           docker-compose --profile baseServices up --build --no-deps -d &&
-          docker compose run test ls ./ &&
-          docker compose run test npx cypress run --config-file ./cypress.config.js
+          cd test && npm install && npx cypress run
 
       # - name: check dns is working
       #   run: cat /etc/hosts; netstat -tulpn # Use -tulpn to show TCP/UDP listeners
