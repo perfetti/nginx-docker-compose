@@ -39,18 +39,9 @@ jobs:
     steps:
       - checkout
 
-      - docker/install-docker-compose:
-          version: "2.14.2"
-
       - run:
           name: Build and start Docker Compose services
           command: bash ./build_github.sh
-
-      - run:
-          name: Check DNS and network
-          command: |
-            cat /etc/hosts
-            netstat -tulpn
 
       - run:
           name: Check service ports
@@ -84,7 +75,3 @@ workflows:
             branches:
               only:
                 - main
-  manual-trigger:
-    when: << pipeline.trigger_source >>
-    jobs:
-      - test
