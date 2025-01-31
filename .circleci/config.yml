@@ -1,37 +1,14 @@
 version: 2.1
-
 orbs:
-  cypress: cypress-io/cypress@3.4.2
+  cypress: cypress-io/cypress@3
 
 workflows:
-  test-workflow:
+  test:
     jobs:
       - cypress/run:
-          executor: cypress/default
-          steps:
-            - run:
-                name: Build and start Docker Compose services
-                command: bash ./build_github.sh
-            - run:
-                name: Wait for service to be ready
-                command: |
-                  timeout=300
-                  while ! curl -s http://localhost:8089 > /dev/null; do
-                    timeout=$((timeout - 1))
-                    if [ $timeout -le 0 ]; then
-                      echo "Service failed to start within 5 minutes"
-                      exit 1
-                    fi
-                    sleep 1
-                  done
+          name: Run Cypress in Node 20
+          cypress-command: npx wait-on@latest http://localhost:8089 && npx cypress run
+          start-command: bash ./up_github.sh
           working-directory: test
-          cypress-command: npx cypress run --config pageLoadTimeout=100000,baseUrl=http://localhost:8089
-          post-steps:
-            - run:
-                name: Tear down Docker Compose services
-                command: docker-compose down
-                when: always
-          filters:
-            branches:
-              only:
-                - main
+          cypress-cache-key: >-
+            cypress-cache-{{ arch }}-{{ checksum "libs/shared-ui/package.json"}}
