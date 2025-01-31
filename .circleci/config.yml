@@ -12,12 +12,10 @@ jobs:
           docker_layer_caching: true
       - run: ls -l $(ls)
       - run: bash ./build_github.sh
-      - cypress/install:
-          package-manager: npm
-          working-directory: test
-      - cypress/run-tests:
-          cypress-command: npx wait-on@latest http://localhost:8089 && cd test && npx cypress run
-          working-directory: test
+      - run: docker ps --format "table {{.Names}}\t{{.Ports}}" && docker compose ps
+      - run: docker-compose up --build --no-deps -d test
+      - run: docker compose exec test npx cypress run
+
 workflows:
   use-my-orb:
     jobs:

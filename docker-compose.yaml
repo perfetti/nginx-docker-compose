@@ -1,6 +1,7 @@
 services:
   frontend:
     build: ${FRONTEND_BUILD_CONTEXT}
+    profiles: ["core", "test"]
     ports:
       - 3000
     networks:
@@ -10,6 +11,7 @@ services:
       - WDS_SOCKET_PORT=${WDS_SOCKET_PORT}
   api:
     build: ${API_BUILD_CONTEXT}
+    profiles: ["core", "test"]
     ports:
       - 3000
     networks:
@@ -30,6 +32,7 @@ services:
         condition: service_healthy
   db:
     image: postgres
+    profiles: ["core", "test"]
     ports:
       - 5432
     networks:
@@ -47,6 +50,7 @@ services:
       retries: 3
   backend:
     build: ${BACKEND_BUILD_CONTEXT}
+    profiles: ["core", "test"]
     ports:
       - 3000
     environment:
@@ -56,10 +60,11 @@ services:
       - app-network
   nginx:
     image: nginx:alpine
+    profiles: ["core", "test"]
     ports:
       - 8089:80
     volumes:
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - nginx_conf:/etc/nginx/conf.d
     depends_on:
       - api
       - frontend
@@ -71,6 +76,19 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3
+  test:
+    build: ./test
+    profiles: ["test"]
+    environment:
+      - CYPRESS_BASE_URL=http://nginx:80
+    networks:
+      - app-network
+    depends_on:
+      - frontend
+      - backend
+      - api
+      - db
+      - nginx
 
 networks:
   app-network:
@@ -78,3 +96,4 @@ networks:
 
 volumes:
   postgres_data:
+  nginx_conf:
