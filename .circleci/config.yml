@@ -84,3 +84,7 @@ workflows:
             branches:
               only:
                 - main
+  manual-trigger:
+    when: << pipeline.trigger_source >>
+    jobs:
+      - test
