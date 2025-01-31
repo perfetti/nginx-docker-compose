@@ -5,6 +5,9 @@ orbs:
 workflows:
   test:
     jobs:
+      - list-files:
+          name: List files in the repository
+          run: ls -l
       - cypress/run:
           name: Run Cypress in Node 20
           cypress-command: npx wait-on@latest http://localhost:8089 && npx cypress run
