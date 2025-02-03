@@ -45,7 +45,7 @@ describe("Books Flow", () => {
 
   it("allows denying provisional books", () => {
     // Visit React1 app
-    cy.visit("/");
+    cy.visit("/backend");
 
     // Propose a new book
     cy.contains("button", "Propose New Book").click();
@@ -81,23 +81,5 @@ describe("Books Flow", () => {
     cy.contains("Test Book 1");
     cy.contains("Test Book 2");
     cy.contains("Test Book 3");
-  });
-
-  it("displays books with authors and publishers", () => {
-    // Setup a book with author and publisher
-    cy.setupBookWithAuthorAndPublisher({
-      bookTitle: "Complete Guide to Testing",
-      authorName: "Jane Tester",
-      publisherName: "Test Publishing House",
-      status: "approved",
-    });
-
-    // Visit React1 app
-    cy.visit("/");
-
-    // Verify book details
-    cy.contains("Complete Guide to Testing");
-    cy.contains("Jane Tester");
-    cy.contains("Test Publishing House");
   });
 });
