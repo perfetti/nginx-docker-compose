@@ -2,7 +2,7 @@ version: 2.1
 orbs:
   cypress: cypress-io/cypress@3
 jobs:
-  run-cypress-in-specified-node-version:
+  run-services-then-cypress:
     executor:
       name: cypress/default
       node-version: "20.6"
@@ -17,7 +17,7 @@ jobs:
       - run: docker compose exec test npx cypress run
 
 workflows:
-  use-my-orb:
+  test-harness:
     jobs:
       - run-cypress-in-specified-node-version:
           name: Run Cypress in Node 20
