@@ -4,6 +4,13 @@ describe("Books Flow", () => {
     cy.resetTestData();
   });
 
+  function fillInBookForm({title, publisher, author, isbn}) {
+    cy.get('input[placeholder="Enter book title"]').type(title);
+    cy.get('input[placeholder="Enter book publisher"]').type(publisher);
+    cy.get('input[placeholder="Enter book author"]').type(author);
+    cy.get('input[placeholder="Enter book ISBN"]').type(isbn);
+  }
+
   it("allows proposing and approving books", () => {
     // Visit React1 app (root path)
     cy.visit("/");
@@ -11,14 +18,12 @@ describe("Books Flow", () => {
 
     // Propose a new book
     cy.contains("button", "Propose New Book").click();
-    cy.get('input[placeholder="Enter book title"]').type("Test Book Title");
-    cy.get('input[placeholder="Enter book publisher"]').type(
-      "Test Author Name"
-    );
-    cy.get('input[placeholder="Enter book author"]').type(
-      "Test Publisher Name"
-    );
-    cy.get('input[placeholder="Enter book ISBN"]').type("1234567890");
+    fillInBookForm({
+      title: "Test Book Title",
+      publisher: "Test Author Name",
+      author: "Test Publisher Name",
+      isbn: "1234567890",
+    });
     cy.contains("button", "Submit").click();
 
     // Visit React2 app (/backend path)
@@ -45,21 +50,20 @@ describe("Books Flow", () => {
 
   it("allows denying provisional books", () => {
     // Visit React1 app
-    cy.visit("/backend");
-
+    cy.visit("/");
     // Propose a new book
     cy.contains("button", "Propose New Book").click();
-    cy.get('input[placeholder="Enter book title"]').type("Book To Deny");
-    cy.get('input[placeholder="Enter book publisher"]').type(
-      "Test Author Name"
-    );
-    cy.get('input[placeholder="Enter book author"]').type(
-      "Test Publisher Name"
-    );
+    fillInBookForm({
+      title: "Book To Deny",
+      publisher: "Test Author Name",
+      author: "Test Publisher Name",
+      isbn: "1234567890",
+    });
     cy.contains("button", "Submit").click();
 
     // Visit React2 app and deny the book
     cy.visit("/backend/");
+    cy.contains("Provisional Books");
     cy.contains(".book-item", "Book To Deny")
       .contains("button", "Deny")
       .click();

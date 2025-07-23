@@ -12,10 +12,13 @@ Example for a blog post about nginx docker compose
 Set your environment variables & initialize submodules
 ```bash
 cp .env.sample .env
+echo "GH_TOKEN=<SuperSecretGithubToken>" > .env
 source .env
 
 git submodule sync
 git submodule update --init --recursive
+
+./bin/build_local.sh
 ```
 
 
@@ -57,3 +60,13 @@ Once the container is up and running, you can hit `http://localhost:8089/` it `/
 `http://localhost:8089/backend/` will route you to the backend service.
 
 `http://localhost:8089/api/` will route you to the backend service with the api path.
+
+
+## Running the Test suite
+
+In the directory `test` you'll find a cypress test suite. In here is our business logic testing. It is a marvel of modern cypriotic book approval/censorship.  After you have `bin/build_local.sh` running, follow the instructions in `./test/README.md` and boot up the Cypress tests.
+
+## What on earth are these services?
+React1(localhost:8089/) - a frontend application allowing users to reccomend books for listing.
+React2(localhost:8089/backend) - Super secret admin panel app allowing admins to approve or deny books for listing
+Rails(localhost:8089/api/books) - Api holding the data, performing business logic. ¡Truly revolutionary!
