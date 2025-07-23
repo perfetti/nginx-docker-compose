@@ -11,4 +11,4 @@ echo $API_BUILD_CONTEXT
 echo $BACKEND_BUILD_CONTEXT
 
 # Run Docker Compose
-docker-compose --profile core -f docker-compose.local.yaml up --build -d
+./bin/up_local.sh
