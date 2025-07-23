@@ -15,4 +15,4 @@ docker compose exec nginx nginx -s reload
 docker rm nginx_tmp
 
 # Run Docker Compose without local volumes
-docker-compose --profile core up --build --no-deps
+docker-compose --profile core up --build --no-deps -d
