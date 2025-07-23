@@ -48,7 +48,7 @@ jobs:
           submodules: false
 
       - name: Build and start Docker Compose services
-        run: bash ./build_github.sh
+        run: bash ./bin/build_github.sh
 
       - name: check dns is working
         run: cat /etc/hosts; netstat -tulpn # Use -tulpn to show TCP/UDP listeners
