@@ -5,12 +5,14 @@ services:
       service: frontend
     volumes:
       - ./repo_refs/react1-app:/app
+      - /app/node_modules
   backend:
     extends:
       file: docker-compose.yaml
       service: backend
     volumes:
       - ./repo_refs/react2-app:/app
+      - /app/node_modules
   api:
     extends:
       file: docker-compose.yaml
