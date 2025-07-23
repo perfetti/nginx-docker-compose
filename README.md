@@ -48,6 +48,8 @@ The GitHub build process is isolated from the local development environment, ens
 
 ### CircleCi Oddities
 
+Checkout `.circleci/config.yml` to see how circleci is being run.
+
 You'll notice that the build_github.sh script does not share volumes to inject the default.conf into nginx. This is because circleci does not allow volume sharing between the host and the docker executor. This is a limitation of the circleci platform, and not a limitation of docker.
 As such we copy the nginx file into the container after the build process and restart the nginx service.
 
