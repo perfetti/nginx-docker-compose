@@ -24,7 +24,7 @@ npm install
 
 ```bash
 # Open Cypress GUI for development
-npm run test:local
+npm run test:gui
 
 # Run tests headlessly
 npm test
