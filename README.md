@@ -12,10 +12,13 @@ Example for a blog post about nginx docker compose
 Set your environment variables & initialize submodules
 ```bash
 cp .env.sample .env
+echo "GH_TOKEN=<SuperSecretGithubToken>" > .env
 source .env
 
 git submodule sync
 git submodule update --init --recursive
+
+./bin/build_local.sh
 ```
 
 
