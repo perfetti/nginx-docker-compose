@@ -2,7 +2,22 @@
 
 Example for a blog post about nginx docker compose
 
+## Prerequisites
+- Github token with these repos in scope.
+
 ## Setup
+Set your environment variables & initialize submodules
+```bash
+cp .env.sample .env
+source .env
+
+git submodule sync
+git submodule update --init --recursive
+```
+
+
+
+## Build the Environments
 
 To run this you will execute one of the following commands depending on your build source:
 
