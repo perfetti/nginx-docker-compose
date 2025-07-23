@@ -2,7 +2,24 @@
 
 Example for a blog post about nginx docker compose
 
+## Prerequisites
+- Github token with these repos in scope. `GH_TOKEN`
+- `docker`
+- `docker compose`
+- `git`
+
 ## Setup
+Set your environment variables & initialize submodules
+```bash
+cp .env.sample .env
+source .env
+
+git submodule sync
+git submodule update --init --recursive
+```
+
+
+## Build the Environments
 
 To run this you will execute one of the following commands depending on your build source:
 
@@ -11,7 +28,7 @@ To run this you will execute one of the following commands depending on your bui
 To build from local directories, run:
 
 ```bash
-./build_local.sh
+./bin/build_local.sh
 ```
 
 This setup allows for hot-swapping of code. Any changes made in the `repo_refs` directories will be immediately reflected in the running containers, allowing developers to see their changes in real-time via the nginx server.
@@ -21,7 +38,7 @@ This setup allows for hot-swapping of code. Any changes made in the `repo_refs` 
 To build from GitHub repositories, run:
 
 ```bash
-./build_github.sh
+./bin/build_github.sh
 ```
 
 The GitHub build process is isolated from the local development environment, ensuring a clean and isolated build environment. This prevents any potential conflicts with local volumes.
