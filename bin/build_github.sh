@@ -17,6 +17,7 @@ export API_BUILD_CONTEXT="https://${GH_TOKEN}@${API_REPO_URL}#${API_REF}"
 export BACKEND_BUILD_CONTEXT="https://${GH_TOKEN}@${BACKEND_REPO_URL}#${BACKEND_REF}"
 
 # Create temporary container to copy nginx config
+# This is done because CircleCi doesn't play well with nginx like that.
 docker volume create project_nginx_conf
 docker container create --name nginx_tmp -v project_nginx_conf:/etc/nginx/conf.d alpine
 docker cp nginx/default.conf nginx_tmp:/etc/nginx/conf.d/

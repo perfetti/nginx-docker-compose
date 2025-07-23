@@ -1,2 +1,2 @@
 #!/bin/bash
-docker-compose --profile core -f docker-compose.local.yaml up --build -d
+docker-compose --profile core -f docker-compose.local.yaml up --build
